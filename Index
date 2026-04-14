@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>個人履歷 | MIS 助理工程師求職</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Space+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2330;
+    --accent: #3b9eff;
+    --accent2: #7ec8ff;
+    --accent3: #ff6b6b;
+    --text: #f2f4fa;
+    --text-muted: #b0b8cc;
+    --text-dim: #606880;
+    --gold: #f0c060;
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Noto Sans TC’, sans-serif;
+font-weight: 300;
+line-height: 1.8;
+overflow-x: hidden;
+}
+
+/* ── Grid noise overlay ── */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image:
+linear-gradient(rgba(59,158,255,0.018) 1px, transparent 1px),
+linear-gradient(90deg, rgba(59,158,255,0.018) 1px, transparent 1px);
+background-size: 40px 40px;
+pointer-events: none;
+z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 3rem;
+background: rgba(10,12,16,0.85);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(–border);
+}
+
+.nav-logo {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.75rem;
+color: var(–accent);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+}
+
+nav ul {
+display: flex;
+gap: 2rem;
+list-style: none;
+}
+
+nav a {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.7rem;
+color: var(–text-muted);
+text-decoration: none;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+
+nav a:hover { color: var(–accent); }
+
+/* ── HERO ── */
+#hero {
+position: relative;
+min-height: 100vh;
+display: flex;
+align-items: center;
+padding: 8rem 3rem 4rem;
+overflow: hidden;
+}
+
+.hero-bg-glow {
+position: absolute;
+top: -200px; right: -200px;
+width: 700px; height: 700px;
+background: radial-gradient(circle, rgba(59,158,255,0.09) 0%, transparent 65%);
+pointer-events: none;
+}
+
+.hero-bg-glow2 {
+position: absolute;
+bottom: -100px; left: -100px;
+width: 500px; height: 500px;
+background: radial-gradient(circle, rgba(126,200,255,0.06) 0%, transparent 65%);
+pointer-events: none;
+}
+
+.hero-inner {
+position: relative;
+max-width: 900px;
+}
+
+.hero-eyebrow {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.7rem;
+color: var(–accent);
+letter-spacing: 0.25em;
+text-transform: uppercase;
+margin-bottom: 1.5rem;
+opacity: 0;
+animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-name {
+font-family: ‘Noto Serif TC’, serif;
+font-size: clamp(2.8rem, 6vw, 5rem);
+font-weight: 600;
+line-height: 1.1;
+margin-bottom: 0.5rem;
+color: #0a0f1a;
+opacity: 0;
+animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.hero-name span {
+display: block;
+color: #0a0f1a;
+-webkit-text-fill-color: #0a0f1a;
+}
+
+.hero-title {
+font-family: ‘Space Mono’, monospace;
+font-size: clamp(0.8rem, 1.5vw, 1rem);
+color: var(–text-muted);
+letter-spacing: 0.08em;
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.hero-desc {
+max-width: 540px;
+color: var(–text-muted);
+font-size: 0.95rem;
+line-height: 2;
+margin-bottom: 3rem;
+opacity: 0;
+animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.hero-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 0.6rem;
+opacity: 0;
+animation: fadeUp 0.8s 1s forwards;
+}
+
+.tag {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+padding: 0.35rem 0.85rem;
+border: 1px solid var(–border);
+border-radius: 2px;
+color: var(–text-muted);
+letter-spacing: 0.08em;
+transition: all 0.2s;
+}
+
+.tag:hover {
+border-color: var(–accent);
+color: var(–accent);
+background: rgba(78,255,176,0.05);
+}
+
+.tag.highlight { border-color: rgba(78,255,176,0.4); color: var(–accent); }
+
+/* ── SECTION BASE ── */
+section {
+position: relative;
+z-index: 1;
+padding: 5rem 3rem;
+max-width: 1100px;
+margin: 0 auto;
+}
+
+.section-label {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+color: var(–accent);
+letter-spacing: 0.25em;
+text-transform: uppercase;
+margin-bottom: 0.75rem;
+}
+
+.section-title {
+font-family: ‘Noto Serif TC’, serif;
+font-size: clamp(1.6rem, 3vw, 2.4rem);
+font-weight: 600;
+margin-bottom: 3rem;
+color: var(–text);
+}
+
+.divider {
+width: 100%;
+height: 1px;
+background: linear-gradient(90deg, var(–border) 0%, transparent 100%);
+margin: 0 auto;
+}
+
+/* ── UCAN RESULT ── */
+.ucan-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1.5rem;
+}
+
+.ucan-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 2rem;
+position: relative;
+overflow: hidden;
+transition: border-color 0.3s, transform 0.3s;
+}
+
+.ucan-card:hover {
+border-color: rgba(78,255,176,0.3);
+transform: translateY(-3px);
+}
+
+.ucan-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, var(–accent), var(–accent2));
+}
+
+.ucan-card:nth-child(2)::before {
+background: linear-gradient(90deg, var(–accent2), #9b7fff);
+}
+
+.ucan-card:nth-child(3)::before {
+background: linear-gradient(90deg, var(–gold), var(–accent3));
+}
+
+.ucan-type {
+font-family: ‘Space Mono’, monospace;
+font-size: 2rem;
+font-weight: 700;
+margin-bottom: 0.25rem;
+}
+
+.ucan-card:nth-child(1) .ucan-type { color: var(–accent); }
+.ucan-card:nth-child(2) .ucan-type { color: var(–accent2); }
+.ucan-card:nth-child(3) .ucan-type { color: var(–gold); }
+
+.ucan-label {
+font-size: 0.8rem;
+color: var(–text-muted);
+margin-bottom: 1rem;
+font-family: ‘Space Mono’, monospace;
+letter-spacing: 0.05em;
+}
+
+.ucan-desc {
+font-size: 0.88rem;
+color: var(–text-muted);
+line-height: 1.9;
+}
+
+/* ── JOB INFO ── */
+.job-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 2.5rem;
+position: relative;
+overflow: hidden;
+}
+
+.job-card::after {
+content: ‘MIS’;
+position: absolute;
+right: 2rem;
+top: 50%;
+transform: translateY(-50%);
+font-family: ‘Space Mono’, monospace;
+font-size: 5rem;
+font-weight: 700;
+color: rgba(78,255,176,0.04);
+letter-spacing: -0.05em;
+user-select: none;
+}
+
+.job-company {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.7rem;
+color: var(–accent);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+margin-bottom: 0.5rem;
+}
+
+.job-position {
+font-family: ‘Noto Serif TC’, serif;
+font-size: 1.6rem;
+font-weight: 600;
+margin-bottom: 1.5rem;
+}
+
+.job-meta {
+display: flex;
+flex-wrap: wrap;
+gap: 1.5rem;
+margin-bottom: 2rem;
+}
+
+.job-meta-item {
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+}
+
+.job-meta-label {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.6rem;
+color: var(–text-dim);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+}
+
+.job-meta-value {
+font-size: 0.88rem;
+color: var(–text-muted);
+}
+
+.job-requirements {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 0.6rem;
+}
+
+.req-item {
+display: flex;
+align-items: flex-start;
+gap: 0.6rem;
+font-size: 0.85rem;
+color: var(–text-muted);
+}
+
+.req-item::before {
+content: ‘▸’;
+color: var(–accent);
+flex-shrink: 0;
+font-size: 0.7rem;
+margin-top: 0.3rem;
+}
+
+/* ── COVER LETTER / RESUME ── */
+.resume-wrap {
+display: grid;
+grid-template-columns: 1fr;
+gap: 2rem;
+}
+
+.resume-block {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 2.5rem;
+}
+
+.block-heading {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 0.2em;
+color: var(–accent);
+text-transform: uppercase;
+margin-bottom: 1.25rem;
+padding-bottom: 0.75rem;
+border-bottom: 1px solid var(–border);
+}
+
+.resume-para {
+font-size: 0.9rem;
+color: var(–text-muted);
+line-height: 2;
+margin-bottom: 1.5rem;
+}
+
+.resume-para:last-child { margin-bottom: 0; }
+
+.resume-para strong {
+color: var(–text);
+font-weight: 500;
+}
+
+/* ── FUTURE PLAN ── */
+.plan-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.5rem;
+}
+
+.plan-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 2rem;
+transition: border-color 0.3s;
+}
+
+.plan-card:hover { border-color: rgba(0,200,255,0.3); }
+
+.plan-num {
+font-family: ‘Space Mono’, monospace;
+font-size: 2.5rem;
+font-weight: 700;
+color: var(–text-dim);
+line-height: 1;
+margin-bottom: 0.75rem;
+}
+
+.plan-title {
+font-family: ‘Noto Serif TC’, serif;
+font-size: 1.1rem;
+color: var(–accent2);
+margin-bottom: 0.75rem;
+}
+
+.plan-desc {
+font-size: 0.87rem;
+color: var(–text-muted);
+line-height: 1.9;
+}
+
+/* ── SKILLS BAR ── */
+.skills-list {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 1.25rem;
+}
+
+.skill-row { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.skill-name {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+color: var(–text-muted);
+display: flex;
+justify-content: space-between;
+}
+
+.skill-bar {
+height: 2px;
+background: var(–border);
+border-radius: 1px;
+overflow: hidden;
+}
+
+.skill-fill {
+height: 100%;
+border-radius: 1px;
+background: linear-gradient(90deg, var(–accent), var(–accent2));
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+
+.skill-fill.animated { transform: scaleX(1); }
+
+/* ── FOOTER ── */
+footer {
+border-top: 1px solid var(–border);
+padding: 2rem 3rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.footer-text {
+font-family: ‘Space Mono’, monospace;
+font-size: 0.65rem;
+color: var(–text-dim);
+letter-spacing: 0.1em;
+}
+
+.footer-accent { color: var(–accent); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(16px);
+transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+nav { padding: 1rem 1.5rem; }
+nav ul { gap: 1rem; }
+section { padding: 4rem 1.5rem; }
+#hero { padding: 7rem 1.5rem 3rem; }
+footer { padding: 2rem 1.5rem; }
+.job-card::after { display: none; }
+}
+
+@media (max-width: 480px) {
+nav ul { display: none; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo">Portfolio.MIS</div>
+  <ul>
+    <li><a href="#ucan">測驗結果</a></li>
+    <li><a href="#job">目標職缺</a></li>
+    <li><a href="#resume">自傳</a></li>
+    <li><a href="#future">未來規劃</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<div id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">MIS Engineer Candidate · 靜宜大學 資管系</div>
+    <h1 class="hero-name">
+      系統思維者<span>以技術驅動秩序</span>
+    </h1>
+    <div class="hero-title">Information Management · System Troubleshooting · Network Infrastructure</div>
+    <p class="hero-desc">
+      一個對底層系統充滿好奇、習慣追根究底的資管系學生。<br>
+      UCAN 職涯測驗結果：<strong style="color:var(--accent)">IAR</strong> 型——研究型、藝術型、實用型的複合特質，<br>
+      正好對應 MIS 職缺所需的邏輯力、細心度與動手實作能力。
+    </p>
+    <div class="hero-tags">
+      <span class="tag highlight">Python</span>
+      <span class="tag highlight">JavaScript</span>
+      <span class="tag">網路架構</span>
+      <span class="tag">系統除錯</span>
+      <span class="tag">設備裝配</span>
+      <span class="tag">TCP/IP</span>
+      <span class="tag">Windows Server</span>
+      <span class="tag">教學助理 TA</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- UCAN RESULTS -->
+
+<section id="ucan">
+  <div class="section-label fade-in">UCAN 職業性格測驗</div>
+  <h2 class="section-title fade-in">我的職涯特質：<span style="color:var(--accent)">IAR</span> 型</h2>
+  <div class="ucan-grid">
+    <div class="ucan-card fade-in">
+      <div class="ucan-type">I</div>
+      <div class="ucan-label">Investigative · 研究型</div>
+      <div class="ucan-desc">
+        測驗中佔比最高的特質。面對系統異常，習慣冷靜拆解問題邏輯而非盲目嘗試。這種追根究底的除錯思維，讓我在面對 MIS 繁雜的 Troubleshooting 時能精準找出癥結。
+      </div>
+    </div>
+    <div class="ucan-card fade-in">
+      <div class="ucan-type">A</div>
+      <div class="ucan-label">Artistic · 藝術型</div>
+      <div class="ucan-desc">
+        透過數位繪圖培養出的敏銳觀察力，在 IT 領域轉化為對「細節」的堅持——整潔的程式碼、清晰的網路架構、易讀的維護文件，追求兼具邏輯與美感的成果。
+      </div>
+    </div>
+    <div class="ucan-card fade-in">
+      <div class="ucan-type">R</div>
+      <div class="ucan-label">Realistic · 實用型</div>
+      <div class="ucan-desc">
+        比起紙上談兵更傾向動手操作。鑽研鍵盤硬體與手刻程式碼的習慣，完美契合 MIS 職缺中「資訊設備操作檢修」、「網路設備設定安裝」等高度實作需求。
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- JOB TARGET -->
+
+<section id="job">
+  <div class="section-label fade-in">Target Position</div>
+  <h2 class="section-title fade-in">目標職缺</h2>
+  <div class="job-card fade-in">
+    <div class="job-company">104 人力銀行 · MIS 相關職缺</div>
+    <div class="job-position">MIS 助理工程師</div>
+    <div class="job-meta">
+      <div class="job-meta-item">
+        <span class="job-meta-label">職缺性質</span>
+        <span class="job-meta-value">系統維護 / 網路管理</span>
+      </div>
+      <div class="job-meta-item">
+        <span class="job-meta-label">核心需求</span>
+        <span class="job-meta-value">問題分析解決 · 細心耐心</span>
+      </div>
+      <div class="job-meta-item">
+        <span class="job-meta-label">適合背景</span>
+        <span class="job-meta-value">資管、資工、電子相關科系</span>
+      </div>
+    </div>
+    <div class="job-requirements">
+      <div class="req-item">資訊設備操作與檢修</div>
+      <div class="req-item">網路設備設定安裝</div>
+      <div class="req-item">電腦設備裝配</div>
+      <div class="req-item">AD / DNS / DHCP 管理</div>
+      <div class="req-item">Windows 系統維護</div>
+      <div class="req-item">TCP/IP 網路架構</div>
+      <div class="req-item">使用者支援與協助</div>
+      <div class="req-item">系統文件撰寫</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+
+<section>
+  <div class="section-label fade-in">Technical Skills</div>
+  <h2 class="section-title fade-in">技術能力概覽</h2>
+  <div class="skills-list">
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>Python</span><span>80%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.80"></div></div>
+    </div>
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>JavaScript / HTML / CSS</span><span>75%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.75"></div></div>
+    </div>
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>系統除錯 / Troubleshooting</span><span>85%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.85"></div></div>
+    </div>
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>Windows 系統維護</span><span>70%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.70"></div></div>
+    </div>
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>網路架構理解 (TCP/IP)</span><span>65%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.65"></div></div>
+    </div>
+    <div class="skill-row fade-in">
+      <span class="skill-name"><span>文件撰寫與溝通</span><span>90%</span></span>
+      <div class="skill-bar"><div class="skill-fill" style="--w:0.90"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESUME / COVER LETTER -->
+
+<section id="resume">
+  <div class="section-label fade-in">Cover Letter & Self Introduction</div>
+  <h2 class="section-title fade-in">自傳履歷</h2>
+  <div class="resume-wrap">
+
+```
+<div class="resume-block fade-in">
+  <div class="block-heading">01 · 個人簡介與求職動機</div>
+  <p class="resume-para">
+    我是目前就讀於<strong>靜宜大學資訊管理學系</strong>的學生。在多數同學將目光放在純軟體開發時，我對系統底層運作與網路架構的穩定性抱有高度興趣。貴公司的 MIS 助理工程師職缺強調「問題分析解決能力」與「細心耐心的特質」，這與我在學期間的實務經驗與性格不謀而合。
+  </p>
+  <p class="resume-para">
+    我相信一個優秀的系統，不僅需要好的開發，更需要<strong>穩健的維運與網路環境支持</strong>。
+  </p>
+</div>
+
+<div class="resume-block fade-in">
+  <div class="block-heading">02 · 具備耐心與邏輯思維的技術解題者</div>
+  <p class="resume-para">
+    MIS 的日常往往是充滿未知變數的 Troubleshooting。在校期間，我因成績優異被指派為<strong>程式設計課程的教學助理（TA）</strong>，訓練了我極強的邏輯除錯與溝通能力——經常需要耐心引導同學，從雜亂的程式碼中抽絲剝繭找出 Bug。
+  </p>
+  <p class="resume-para">
+    此外，我具有遇到問題時「追根究底」的韌性。曾為了徹底理解底層邏輯，堅持不依賴 AI 輔助，直接研讀官方文件（如 W3School）從零<strong>手刻網頁專案</strong>。這種踏實解決問題的態度，使我能勝任 MIS 繁雜的設備檢修與系統除錯工作。
+  </p>
+</div>
+
+<div class="resume-block fade-in">
+  <div class="block-heading">03 · 擁有開發思維的維運潛力</div>
+  <p class="resume-para">
+    除了對電腦設備裝配有基礎認知，我具備 <strong>Python、JavaScript</strong> 等程式開發能力。這讓我與傳統的硬體維護人員不同——在熟悉 Windows 系統維護的基礎上，未來有能力透過撰寫<strong>腳本（Script）</strong>來自動化重複性的維運任務，例如批次帳號管理或日常監控，提升整體 IT 部門的運作效率。
+  </p>
+</div>
+
+<div class="resume-block fade-in">
+  <div class="block-heading">04 · UCAN 測驗呼應 MIS 職能需求</div>
+  <p class="resume-para">
+    根據 UCAN 大專校院就業職能平台的測驗結果，我的職業性格傾向為 <strong>IAR（研究型、藝術型、實用型）</strong>，三項特質正好對應優秀 MIS 人員所需的核心能力：
+  </p>
+  <p class="resume-para">
+    <strong>研究型</strong>——追根究底的除錯專家，習慣冷靜拆解問題邏輯；<strong>實用型</strong>——捲起袖子動手做，喜歡與實體設備互動；<strong>藝術型</strong>——對細節的堅持，讓程式碼、文件與架構兼具邏輯與美感，呼應職缺對「細心特質」的要求。
+  </p>
+</div>
+
+<div class="resume-block fade-in">
+  <div class="block-heading">05 · 結語</div>
+  <p class="resume-para">
+    我具備扎實的資管背景、耐心的問題排除能力，以及渴望精進網路與系統管理技術的企圖心。希望能有機會加入貴公司，協助維持系統的穩定運作，並與團隊共同成長。
+  </p>
+</div>
+```
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FUTURE PLAN -->
+
+<section id="future">
+  <div class="section-label fade-in">Future Development Plan</div>
+  <h2 class="section-title fade-in">未來充實規劃</h2>
+  <div class="plan-grid">
+    <div class="plan-card fade-in">
+      <div class="plan-num">01</div>
+      <div class="plan-title">校內修課規劃</div>
+      <div class="plan-desc">
+        預計於接下來的學期修習「計算機網路」與「系統與網路管理」等核心課程。目標是將理論與實務結合，徹底精通職缺所需的 TCP/IP 網路架構，並實作 AD、DNS 與 DHCP Server 的架設與管理。
+      </div>
+    </div>
+    <div class="plan-card fade-in">
+      <div class="plan-num">02</div>
+      <div class="plan-title">社團與專案實作</div>
+      <div class="plan-desc">
+        目前活躍於「行雲者」技術社團，預計將自己開發的應用程式（智慧藥物管理系統）實際部署至伺服器。透過從開發到上線的完整流程，實戰演練 Linux/Windows 環境設定與網路架設佈線，培養全端維運的宏觀視野。
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-text">靜宜大學 資訊管理學系 · <span class="footer-accent">MIS 助理工程師求職</span></div>
+  <div class="footer-text" id="footer-time"></div>
+</footer>
+
+<script>
+  // Footer time
+  const el = document.getElementById('footer-time');
+  el.textContent = new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'long', day:'numeric' });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Skill bar animation
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(fill => {
+          fill.style.transform = `scaleX(${fill.style.getPropertyValue('--w') || 1})`;
+          fill.classList.add('animated');
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-list').forEach(el => barObserver.observe(el));
+</script>
+
+</body>
+</html>
